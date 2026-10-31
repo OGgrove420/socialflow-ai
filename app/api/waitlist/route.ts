@@ -35,9 +35,13 @@ export async function POST(req: Request) {
       if (res.ok) {
         return NextResponse.redirect(new URL("/waitlist-thanks", req.url), 303);
       }
-      console.error("waitlist supabase insert failed", res.status, await res.text());
+      const errText = await res.text();
+      console.error("waitlist supabase insert failed", res.status, errText);
+      // ?src= marker is diagnostic only; visitors still get the thanks page
+      return NextResponse.redirect(new URL(`/waitlist-thanks?src=http${res.status}`, req.url), 303);
     } catch (err) {
       console.error("waitlist supabase insert error", err);
+      return NextResponse.redirect(new URL("/waitlist-thanks?src=fetcherror", req.url), 303);
     }
   }
 
@@ -51,5 +55,5 @@ export async function POST(req: Request) {
     // the signup still counts as received
   }
 
-  return NextResponse.redirect(new URL("/waitlist-thanks", req.url), 303);
+  return NextResponse.redirect(new URL("/waitlist-thanks?src=noenv", req.url), 303);
 }
