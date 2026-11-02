@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const sections = [
   {
     h: "What we collect",
@@ -30,22 +32,21 @@ const sections = [
 
 export default function Privacy() {
   return (
-    <main style={{ maxWidth: 680, margin: "0 auto", padding: "4rem 1.5rem" }}>
-      <h1 style={{ marginBottom: "0.5rem" }}>Privacy</h1>
-      <p style={{ color: "var(--muted)", marginBottom: "2rem" }}>
+    <div className="legal">
+      <Link href="/" className="legal-back">← socialflow.ai</Link>
+      <h1>Privacy</h1>
+      <p className="legal-sub">
         SocialFlow AI is owned and operated by Conscious Mind Concepts (Pty) Ltd, South Africa.
       </p>
       {sections.map((s) => (
-        <section key={s.h} style={{ marginBottom: "1.5rem" }}>
-          <h2 style={{ fontSize: "1.15rem", marginBottom: "0.5rem" }}>{s.h}</h2>
+        <section key={s.h}>
+          <h2>{s.h}</h2>
           {s.p.map((para, i) => (
-            <p key={i} style={{ color: "var(--muted)", marginBottom: "0.5rem" }}>
-              {para}
-            </p>
+            <p key={i}>{para}</p>
           ))}
         </section>
       ))}
-      <p style={{ color: "var(--muted)", fontSize: "0.85rem" }}>Last updated: 29 October 2026</p>
-    </main>
+      <p style={{ color: "var(--faint)", fontSize: "0.85rem" }}>Last updated: 29 October 2026</p>
+    </div>
   );
 }

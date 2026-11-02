@@ -1,10 +1,17 @@
+import Link from "next/link";
+
 export default function WaitlistThanks() {
   return (
-    <main style={{ maxWidth: 600, margin: "0 auto", padding: "5rem 1.5rem", textAlign: "center" }}>
-      <h1 style={{ marginBottom: "0.75rem" }}>You&apos;re on the list.</h1>
-      <p style={{ color: "var(--muted)" }}>
-        We&apos;ll email you when sign-up opens. Founder pricing for waitlist members.
-      </p>
-    </main>
+    <div className="thanks-wrap">
+      <div className="thanks-card">
+        <div className="thanks-check">✓</div>
+        <h1>You&apos;re on the list.</h1>
+        <p>
+          We&apos;ll email you the moment sign-up opens, in the order people joined. Your founder
+          pricing is locked in from today.
+        </p>
+        <Link href="/" className="btn btn-ghost">Back to home</Link>
+      </div>
+    </div>
   );
 }
