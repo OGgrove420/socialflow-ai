@@ -1,6 +1,8 @@
 "use client";
 // compose: pick connected accounts, write once, override captions per platform,
 // attach media urls, preview char counts, publish now or schedule.
+// hobby-plan note: vercel cron runs daily, so the dashboard "kicks" the
+// scheduler (POST /api/cron/kick) on load to run due jobs within minutes.
 import { useCallback, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 
@@ -60,7 +62,11 @@ export default function ComposePage() {
     setPlatforms(data.platforms ?? {});
   }, []);
 
-  useEffect(() => { load(); }, [load]);
+  useEffect(() => {
+    load();
+    // scheduler kick: runs due jobs even though vercel cron is daily on hobby
+    fetch("/api/cron/kick", { method: "POST" }).catch(() => {});
+  }, [load]);
 
   const hasImage = useMemo(() => mediaUrls.some((u) => /\.(png|jpe?g|webp|gif)(\?|$)/i.test(u)), [mediaUrls]);
   const hasVideo = useMemo(() => mediaUrls.some((u) => /\.(mp4|mov|webm)(\?|$)/i.test(u)), [mediaUrls]);

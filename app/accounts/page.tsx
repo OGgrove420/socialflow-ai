@@ -73,7 +73,10 @@ export default function AccountsPage() {
     }
   }, []);
 
-  useEffect(() => { load(); }, [load]);
+  useEffect(() => {
+    load();
+    fetch("/api/cron/kick", { method: "POST" }).catch(() => {});
+  }, [load]);
 
   async function disconnect(id: string) {
     setBusy(id);
