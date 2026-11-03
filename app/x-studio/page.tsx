@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import AppShell from "../AppShell";
 import XStudio from "./XStudio";
 
 export const metadata: Metadata = {
@@ -8,13 +9,15 @@ export const metadata: Metadata = {
 
 export default function XStudioPage() {
   return (
-    <main className="container" style={{ paddingTop: "3rem", paddingBottom: "5rem" }}>
-      <h1 className="studio-title">x beta studio</h1>
-      <p className="studio-sub">
-        beta: one account (x), real posts, you press post on every one. full multi-platform
-        scheduling ships after the beta.
-      </p>
-      <XStudio />
-    </main>
+    <AppShell>
+      <div className="container" style={{ paddingTop: "3rem", paddingBottom: "5rem" }}>
+        <h1 className="studio-title">x beta studio</h1>
+        <p className="studio-sub">
+          beta: one account (x), real posts, you press post on every one. full multi-platform
+          scheduling ships after the beta.
+        </p>
+        <XStudio />
+      </div>
+    </AppShell>
   );
 }

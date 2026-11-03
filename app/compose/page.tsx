@@ -4,7 +4,7 @@
 // hobby-plan note: vercel cron runs daily, so the dashboard "kicks" the
 // scheduler (POST /api/cron/kick) on load to run due jobs within minutes.
 import { useCallback, useEffect, useMemo, useState } from "react";
-import Link from "next/link";
+import AppShell from "../AppShell";
 
 type Account = {
   id: string;
@@ -155,13 +155,15 @@ export default function ComposePage() {
   const selectedAccounts = accounts.filter((a) => selected.has(a.id));
 
   return (
-    <main style={main}>
+    <AppShell>
+      <div style={main}>
       <header style={header}>
-        <h1 style={{ fontSize: 24, margin: 0 }}>compose</h1>
-        <nav style={{ display: "flex", gap: 12 }}>
-          <Link href="/accounts">accounts</Link>
-          <Link href="/">home</Link>
-        </nav>
+        <div>
+          <h1 style={{ fontSize: 24, margin: 0 }}>compose</h1>
+          <p style={{ opacity: 0.6, fontSize: 14, margin: "4px 0 0" }}>
+            write once, tweak per platform, publish now or schedule.
+          </p>
+        </div>
       </header>
 
       <div style={layout}>
@@ -169,7 +171,7 @@ export default function ComposePage() {
           <h2 style={h2}>accounts</h2>
           {accounts.length === 0 && (
             <p style={{ opacity: 0.6, fontSize: 14 }}>
-              no connected accounts. <Link href="/accounts">connect one first</Link>.
+              no connected accounts. <a href="/accounts">connect one first</a>.
             </p>
           )}
           <div style={{ display: "grid", gap: 8 }}>
@@ -322,18 +324,16 @@ export default function ComposePage() {
           )}
         </section>
       </div>
-    </main>
+      </div>
+    </AppShell>
   );
 }
 
 const main: React.CSSProperties = {
-  minHeight: "100vh",
-  background: "#0a0a0f",
-  color: "#eaeaf0",
-  fontFamily: "system-ui",
   padding: "32px 24px",
   maxWidth: 1200,
   margin: "0 auto",
+  width: "100%",
 };
 const header: React.CSSProperties = {
   display: "flex",

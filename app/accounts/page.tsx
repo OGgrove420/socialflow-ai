@@ -2,7 +2,7 @@
 // accounts dashboard: connected platforms, statuses, capability chips,
 // connect/disconnect/reconnect actions. statuses use the exact labels.
 import { useCallback, useEffect, useState } from "react";
-import Link from "next/link";
+import AppShell from "../AppShell";
 
 type Account = {
   id: string;
@@ -96,11 +96,18 @@ export default function AccountsPage() {
   const connectedPlatforms = new Set(accounts.map((a) => a.platform));
 
   if (loading) {
-    return <main style={main}><p style={{ opacity: 0.6 }}>loading…</p></main>;
+    return (
+      <AppShell>
+        <div style={{ ...main, display: "grid", placeItems: "center" }}>
+          <p style={{ opacity: 0.6 }}>loading…</p>
+        </div>
+      </AppShell>
+    );
   }
 
   return (
-    <main style={main}>
+    <AppShell>
+      <div style={main}>
       <header style={header}>
         <div>
           <h1 style={{ fontSize: 24, margin: 0 }}>social accounts</h1>
@@ -108,10 +115,6 @@ export default function AccountsPage() {
             connect once, publish everywhere. you authorise each platform with its official login; socialflow never sees your passwords.
           </p>
         </div>
-        <nav style={{ display: "flex", gap: 12, alignItems: "center" }}>
-          <Link href="/compose">compose</Link>
-          <SignOut />
-        </nav>
       </header>
 
       {error && <p style={errStyle}>{error}</p>}
@@ -235,32 +238,16 @@ export default function AccountsPage() {
           })}
         </div>
       </section>
-    </main>
-  );
-}
-
-function SignOut() {
-  return (
-    <button
-      onClick={async () => {
-        await fetch("/api/auth/signout", { method: "POST" });
-        window.location.href = "/";
-      }}
-      style={{ ...btnStyle, background: "transparent", border: "1px solid rgba(255,255,255,0.15)" }}
-    >
-      sign out
-    </button>
+      </div>
+    </AppShell>
   );
 }
 
 const main: React.CSSProperties = {
-  minHeight: "100vh",
-  background: "#0a0a0f",
-  color: "#eaeaf0",
-  fontFamily: "system-ui",
   padding: "32px 24px",
   maxWidth: 1080,
   margin: "0 auto",
+  width: "100%",
 };
 const header: React.CSSProperties = {
   display: "flex",

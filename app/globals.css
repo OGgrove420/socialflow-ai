@@ -955,6 +955,58 @@ a {
   color: var(--text);
 }
 
+/* ---------- app shell (logged-in pages) ---------- */
+
+.app-link {
+  color: var(--muted);
+  font-size: 0.95rem;
+  font-weight: 500;
+  background: none;
+  border: none;
+  font-family: inherit;
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.15s ease;
+}
+
+.app-link:hover {
+  color: var(--text);
+}
+
+.app-link-active {
+  color: var(--text);
+}
+
+.app-link-quiet {
+  color: var(--faint);
+}
+
+.app-link-btn {
+  color: var(--muted);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.4rem 0.9rem;
+  font-size: 0.85rem;
+}
+
+.app-link-btn:hover {
+  background: var(--surface);
+}
+
+.app-main {
+  min-height: calc(100vh - 64px);
+}
+
+@media (max-width: 640px) {
+  .nav-links {
+    gap: 1rem;
+  }
+  .nav-links a,
+  .app-link {
+    font-size: 0.85rem;
+  }
+}
+
 /* x beta studio */
 .studio {
   max-width: 720px;
